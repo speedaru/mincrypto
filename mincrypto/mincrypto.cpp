@@ -1,8 +1,13 @@
-#include <mincrypto.h>
+#include "mincrypto.h"
 
+
+void mincrypto::KeyPair::clear() {
+    memset(&publicKey, 0, sizeof(publicKey));
+    memset(&privateKey, 0, sizeof(privateKey));
+}
 
 void mincrypto::GenerateKeyPairFromSeed(const std::string& license, KeyPair& keyPair) {
-    Key seed[crypto_box_SEEDBYTES];
+    uint8_t seed[crypto_box_SEEDBYTES];
 
     // Hash the license string into a seed
     crypto_generichash(seed, sizeof(seed),
